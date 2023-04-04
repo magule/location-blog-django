@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+
+{% block content%}
+
+	{% for post in posts %}
+		<article class="media content-section">
+		  <img class='rounded-circle article-img' src="{{ post.author.profile.image.url }}">	
+		  <div class="media-body">
+		    <div class="article-metadata">
+		      <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+		      <small class="text-muted ml-12">{{ post.date_posted}}</small>
+		      <small class="text-muted">---> {{ post.mood }}</small>
+
+		      <br>
+
+
+		       {% for tag in post.tags.all %}
+                    Location:<strong> <a href="{% url 'tagged' tag.slug %}">{{ tag.name }}</a> </strong></a>
+
+              {% endfor %}
+
+		      <!--konum:<strong> {{post.tags}} </strong></a>-->
+
+		    </div>
+		    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+		    <p class="article-content">{{ post.content }}</p>
+
+		  </div>
+		</article>
+
+	{% endfor %}
+
+{% endblock content %}
